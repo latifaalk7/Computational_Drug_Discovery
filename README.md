@@ -1,63 +1,32 @@
 # Computational Drug Discovery Analysis
 
-### From Molecular Structure to Biological Activity. 
+### How much can we learn about a drug simply from its molecular structure?
 ---
 
-## 📌 Project Overview
+## Project Overview
 
-How much can we learn about a drug simply from its molecular structure?
+<img width="792" height="274" alt="Screenshot 2026-09-05 at 4 42 37 PM" src="https://github.com/user-attachments/assets/47591408-fa90-4185-bc26-c4d7db028fa5" />
+
 
 This project explores that question by analysing **eight well-known drug molecules** using cheminformatics and molecular descriptors. Rather than looking at the molecules only as chemical structures, the analysis converts them into numerical representations that allow their structures, properties and biological activity to be compared computationally.
 
-The project follows a simple progression:
-
-> **Molecular Structure → Molecular Fingerprints → Structural Similarity → Physicochemical Properties → Drug-Likeness → Biological Activity**
+### 📌 Key Finding
 
 The central finding is that **molecular structure provides valuable information about a compound, but it does not tell the complete story about biological potency**.
 
 
 ---
 
- Project Workflow
+### Project Workflow
 
-```text
-                   MOLECULAR STRUCTURES
-                            │
-                            ▼
-                  STRUCTURE STANDARDISATION
-                            │
-                            ▼
-                  MOLECULAR FINGERPRINTS
-                    ┌───────┴───────┐
-                    ▼               ▼
-                 Morgan           MACCS
-                    │               │
-                    └───────┬───────┘
-                            ▼
-                  STRUCTURAL SIMILARITY
-                            │
-                            ▼
-                PHYSICOCHEMICAL PROPERTIES
-                            │
-                            ▼
-                   LIPINSKI RULE OF FIVE
-                            │
-                            ▼
-                    EGFR BIOLOGICAL DATA
-                            │
-                            ▼
-                       IC50 ACTIVITY
-                            │
-                            ▼
-                  STRUCTURE → ACTIVITY
-                     RELATIONSHIP
-```
+ The project follows a simple progression:
+> **Molecular Structure → Molecular Fingerprints → Structural Similarity → Physicochemical Properties → Drug-Likeness → Biological Activity**
 
 The analysis therefore moves from **what a molecule looks like** to **what properties it has** and finally to **how it behaves biologically**.
 
 ---
 
-# Molecular Fingerprints 
+## Molecular Fingerprints 
 
 Chemical structures are difficult for computers to compare directly. To solve this, the molecules were converted into **molecular fingerprints** — numerical representations of structural features.
 
@@ -70,7 +39,9 @@ A fingerprint can be thought of as a checklist:
 
 This allows molecules to be compared computationally.
 
-## Morgan Fingerprints
+### 📊 Morgan Fingerprints
+
+<img width="792" height="274" alt="Screenshot 2026-09-05 at 4 42 37 PM" src="https://github.com/user-attachments/assets/47591408-fa90-4185-bc26-c4d7db028fa5" />
 
 The analysis used **Morgan fingerprints with 1,024 bits**.
 
@@ -87,10 +58,6 @@ For example:
 This indicates that the molecules contain very different numbers of structural features captured by the fingerprint.
 
 > **Important:** More active fingerprint bits does not mean a drug is more effective. It reflects differences in molecular structure and complexity.
-
-### 📊 Morgan Fingerprints
-
-<img width="792" height="274" alt="Screenshot 2026-09-05 at 4 42 37 PM" src="https://github.com/user-attachments/assets/47591408-fa90-4185-bc26-c4d7db028fa5" />
 
 ---
 
