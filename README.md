@@ -8,11 +8,13 @@
 <img width="792" height="274" alt="Screenshot 2026-09-05 at 4 42 37 PM" src="https://github.com/user-attachments/assets/47591408-fa90-4185-bc26-c4d7db028fa5" />
 
 
-This project explores that question by analysing **eight well-known drug molecules** using cheminformatics and molecular descriptors. Rather than looking at the molecules only as chemical structures, the analysis converts them into numerical representations that allow their structures, properties and biological activity to be compared computationally.
+This project explores how much we can learn about a drug from its molecular structure. I analysed 8 drug molecules, converted their structures into numerical fingerprints, measured their similarity, calculated key chemical properties, and tested their drug-likeness using Lipinski's Rule of Five.
+
+I then analysed EGFR inhibitor data from ChEMBL to explore whether molecular information can help explain biological activity.
 
 ### 📌 Key Finding
 
-The central finding is that **molecular structure provides valuable information about a compound, but it does not tell the complete story about biological potency**.
+The results show that molecular structure provides useful information, but it cannot fully explain how strongly a drug acts on a biological target.
 
 
 ---
@@ -20,7 +22,26 @@ The central finding is that **molecular structure provides valuable information 
 ### Project Workflow
 
  The project follows a simple progression:
-> **Molecular Structure → Molecular Fingerprints → Structural Similarity → Physicochemical Properties → Drug-Likeness → Biological Activity**
+
+```text 
+Molecular Structures
+        ↓
+Structure Standardisation
+        ↓
+Molecular Fingerprints
+        ↓
+Structural Similarity
+        ↓
+Chemical Properties
+        ↓
+Lipinski Rule of Five
+        ↓
+EGFR Activity Data
+        ↓
+      IC50
+        ↓
+Structure → Activity
+```
 
 The analysis therefore moves from **what a molecule looks like** to **what properties it has** and finally to **how it behaves biologically**.
 
@@ -28,42 +49,30 @@ The analysis therefore moves from **what a molecule looks like** to **what prope
 
 ## Molecular Fingerprints 
 
-Chemical structures are difficult for computers to compare directly. To solve this, the molecules were converted into **molecular fingerprints** — numerical representations of structural features.
+To compare molecules using a computer, I converted each chemical structure into a molecular fingerprint.
 
-A fingerprint can be thought of as a checklist:
+A fingerprint is a list of numbers showing which structural features are present:
 
 ```text
 1 = structural feature is present
 0 = structural feature is absent
 ```
 
-This allows molecules to be compared computationally.
-
 ### 📊 Morgan Fingerprints
-
-<img width="792" height="274" alt="Screenshot 2026-09-05 at 4 42 37 PM" src="https://github.com/user-attachments/assets/47591408-fa90-4185-bc26-c4d7db028fa5" />
-
 The analysis used **Morgan fingerprints with 1,024 bits**.
 
-The number of active bits varies considerably.
+<img width="493" height="298" alt="Screenshot 2026-09-05 at 8 41 35 PM" src="https://github.com/user-attachments/assets/3a56853a-dae5-4f44-af88-e1defaa5bd9d" />
 
-For example:
 
-* **Paracetamol:** 19 active bits
-* **Aspirin:** 24 active bits
-* **Ciprofloxacin:** 45 active bits
-* **Sildenafil:** 65 active bits
-* **Imatinib:** 65 active bits
 
-This indicates that the molecules contain very different numbers of structural features captured by the fingerprint.
-
-> **Important:** More active fingerprint bits does not mean a drug is more effective. It reflects differences in molecular structure and complexity.
+The number of active bits varies considerably. This indicates that the molecules contain very different numbers of structural features captured by the fingerprint.
+More active fingerprint bits does not mean a drug is more effective. It reflects differences in molecular structure and complexity.
 
 ---
 
 ## The Effect of Fingerprint Radius
 
-Morgan fingerprints can capture molecular information at different radii.
+Morgan fingerprints can look at different amounts of the structure around each atom.
 
 For aspirin:
 
@@ -91,61 +100,32 @@ Larger molecular environments
 
 ## MACCS Fingerprints
 
-A second molecular representation was generated using **MACCS fingerprints**.
+I also generated MACCS fingerprints, which use a fixed set of chemical features.
 
-While Morgan fingerprints identify structural patterns through molecular environments, MACCS fingerprints use a predefined set of chemical substructure keys.
-
-Using both approaches allows us to ask:
-
-> **Does the way we represent a molecule change the similarities we detect?**
+Using both Morgan and MACCS fingerprints allowed me to compare how different representations affect molecular similarity. While Morgan fingerprints identify structural patterns through molecular environments, MACCS fingerprints use a predefined set of chemical substructure keys.
 
 <img width="792" height="242" alt="Screenshot 2026-09-05 at 4 48 51 PM" src="https://github.com/user-attachments/assets/fc23a81c-11d0-4e20-93c6-fcf75fd4381c" />
 
 ---
 
-# 🔗 2. Molecular Similarity
+# 🔗 Molecular Similarity
 
-Once the molecules had been converted into fingerprints, their structural similarity could be quantified using the **Tanimoto similarity coefficient**.
-
-A score closer to:
+I used Tanimoto similarity to measure how similar different molecules are.
 
 ```text
 0 → Low similarity
 1 → High similarity
 ```
+<img width="778" height="120" alt="Screenshot 2026-09-05 at 8 47 46 PM" src="https://github.com/user-attachments/assets/8f007cf1-9733-47d9-8081-be298ad8cb9e" />
 
-Three comparisons were particularly informative:
+Erlotinib and Imatinib are both kinase inhibitors, and their MACCS similarity (0.485) was higher than their similarity with aspirin.
 
-| Molecular Pair        | Morgan Similarity | MACCS Similarity |
-| --------------------- | ----------------: | ---------------: |
-| Erlotinib vs Imatinib |             0.167 |            0.485 |
-| Erlotinib vs Aspirin  |             0.127 |            0.291 |
-| Imatinib vs Aspirin   |             0.113 |            0.125 |
+However, their Morgan similarity was only 0.167.
 
-### 💡 What does this tell us?
+This shows that:
 
-Erlotinib and Imatinib are both kinase inhibitors, and their MACCS similarity is noticeably higher than the comparisons involving aspirin.
-
-However, their Morgan similarity is still relatively low.
-
-This highlights two important ideas:
-
-### 1. Biological relationships do not necessarily mean highly similar complete structures
-
-Two compounds can interact with related biological targets without having extremely similar overall molecular structures.
-
-### 2. Similarity depends on the representation
-
-Erlotinib and Imatinib have:
-
-```text
-Morgan similarity  → 0.167
-MACCS similarity   → 0.485
-```
-
-The difference demonstrates that different fingerprinting methods capture different aspects of chemical structure.
-
-> **There is therefore no single definition of molecular similarity — it depends on what structural features we choose to measure.**
+Molecules with related biological effects do not always have very similar structures.
+The measured similarity depends on the fingerprint method being used.
 
 ---
 
