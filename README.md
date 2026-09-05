@@ -283,11 +283,11 @@ Jupyter Notebook
 computational-drug-discovery/
 │
 ├── images/
+│   ├── egfr_ic50_distribution.png
+│   ├── maccs_fingerprints.png
 │   ├── morgan_fingerprints.png
 │   ├── morgan_radius_comparison.png
-│   ├── maccs_fingerprints.png
 │   ├── physicochemical_descriptors.png
-│   ├── egfr_ic50_distribution.png
 │
 ├── notebooks/
 │   └── computational_drug_discovery.ipynb
