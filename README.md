@@ -1,19 +1,27 @@
-# 🧬 From Molecular Structure to Biological Activity
+# Computational Drug Discovery Analysis
 
-### A Computational Drug Discovery Analysis Using Molecular Fingerprints, Similarity, Physicochemical Properties & EGFR Inhibition
+### From Molecular Structure to Biological Activity. 
+---
+
+## 📌 Project Overview
+
+How much can we learn about a drug simply from its molecular structure?
+
+This project explores that question by analysing **eight well-known drug molecules** using cheminformatics and molecular descriptors. Rather than looking at the molecules only as chemical structures, the analysis converts them into numerical representations that allow their structures, properties and biological activity to be compared computationally.
+
+The project follows a simple progression:
+
+> **Molecular Structure → Molecular Fingerprints → Structural Similarity → Physicochemical Properties → Drug-Likeness → Biological Activity**
+
+The central finding is that **molecular structure provides valuable information about a compound, but it does not tell the complete story about biological potency**.
+
 
 ---
 
-## 🔬 What did I find?
-
-This project explores how far we can understand a drug's behaviour from its molecular structure. Using eight diverse drug molecules, I transformed chemical structures into numerical fingerprints, compared their structural similarity, analysed their physicochemical properties, and evaluated their drug-likeness using Lipinski's Rule of Five. I then extended the analysis to EGFR inhibitors to investigate how molecular information relates to real biological activity through IC50 measurements. The results show that **molecular structure provides a valuable foundation for computational drug discovery, but structure alone cannot fully explain biological potency**. While structurally different molecules can still satisfy common drug-likeness criteria, biological activity can vary by several orders of magnitude and even differ between experimental measurements of the same compound.
-
----
-
-# 🧭 Project Workflow
+ Project Workflow
 
 ```text
-                    MOLECULAR STRUCTURES
+                   MOLECULAR STRUCTURES
                             │
                             ▼
                   STRUCTURE STANDARDISATION
@@ -49,7 +57,7 @@ The analysis therefore moves from **what a molecule looks like** to **what prope
 
 ---
 
-# 🧩 1. Molecular Fingerprints
+# Molecular Fingerprints 
 
 Chemical structures are difficult for computers to compare directly. To solve this, the molecules were converted into **molecular fingerprints** — numerical representations of structural features.
 
@@ -65,17 +73,6 @@ This allows molecules to be compared computationally.
 ## Morgan Fingerprints
 
 The analysis used **Morgan fingerprints with 1,024 bits**.
-
-| Drug          | Active Bits |
-| ------------- | ----------: |
-| Aspirin       |          24 |
-| Caffeine      |          24 |
-| Ibuprofen     |          25 |
-| Paracetamol   |          19 |
-| Ciprofloxacin |          45 |
-| Sildenafil    |          65 |
-| Erlotinib     |          47 |
-| Imatinib      |          65 |
 
 The number of active bits varies considerably.
 
@@ -93,21 +90,17 @@ This indicates that the molecules contain very different numbers of structural f
 
 ### 📊 Morgan Fingerprints
 
-![Morgan Fingerprints](images/morgan_fingerprints.png)
+<img width="792" height="274" alt="Screenshot 2026-09-05 at 4 42 37 PM" src="https://github.com/user-attachments/assets/47591408-fa90-4185-bc26-c4d7db028fa5" />
 
 ---
 
-## 🔍 The Effect of Fingerprint Radius
+## The Effect of Fingerprint Radius
 
 Morgan fingerprints can capture molecular information at different radii.
 
 For aspirin:
 
-| Morgan Radius | Active Bits |
-| ------------: | ----------: |
-|             0 |           6 |
-|             1 |          16 |
-|             2 |          24 |
+<img width="794" height="187" alt="Screenshot 2026-09-05 at 4 45 24 PM" src="https://github.com/user-attachments/assets/765a5e12-92b5-4c30-8951-00b4b61e8a2b" />
 
 As the radius increases, the fingerprint considers a larger structural neighbourhood around each atom.
 
@@ -127,13 +120,9 @@ Radius 2
 Larger molecular environments
 ```
 
-This demonstrates that **how we represent a molecule influences what structural information we are able to capture**.
-
-![Morgan Radius Comparison](images/morgan_radius_comparison.png)
-
 ---
 
-## 🧬 MACCS Fingerprints
+## MACCS Fingerprints
 
 A second molecular representation was generated using **MACCS fingerprints**.
 
@@ -143,7 +132,7 @@ Using both approaches allows us to ask:
 
 > **Does the way we represent a molecule change the similarities we detect?**
 
-![MACCS Fingerprints](images/maccs_fingerprints.png)
+<img width="792" height="242" alt="Screenshot 2026-09-05 at 4 48 51 PM" src="https://github.com/user-attachments/assets/fc23a81c-11d0-4e20-93c6-fcf75fd4381c" />
 
 ---
 
