@@ -282,17 +282,12 @@ Jupyter Notebook
 ```text
 computational-drug-discovery/
 │
-├── data/
-│   ├── drugs.csv
-│   └── egfr_inhibitors.csv
-│
 ├── images/
 │   ├── morgan_fingerprints.png
 │   ├── morgan_radius_comparison.png
 │   ├── maccs_fingerprints.png
 │   ├── physicochemical_descriptors.png
 │   ├── egfr_ic50_distribution.png
-│   └── egfr_ic50_log_distribution.png
 │
 ├── notebooks/
 │   └── computational_drug_discovery.ipynb
